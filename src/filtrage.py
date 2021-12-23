@@ -3,6 +3,8 @@ import numpy as np
 
 path='data/image3.jpg'
 voisinage=3
+sizeDelate=2
+sizeErode=2
 
 #just in case we find a solution to use it on an image
 kernel3D=np.array([
@@ -106,6 +108,16 @@ def mean_2D(img):
                     img_mean[y,x]=np.mean(imgV)
     return img_mean
 
+#can only be used on 2D for now
+def delate_func(img):
+    kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(sizeDelate*2+1,sizeDelate*2+1))
+    result=cv2.dilate(img,kernel,iterations=1)
+    return result
+
+def erode_func(img):
+    kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(sizeErode*2+1,sizeErode*2+1))
+    result=cv2.erode(img,kernel,iterations=1)
+    return result
 
 
 if __name__ == '__main__':
@@ -113,13 +125,14 @@ if __name__ == '__main__':
     gauss=gaussian_filter(img)
     filtered1=laplacian_filter(gauss)
     #filtered2=laplacian_other(gauss)
-    filtered3=mean_2D(filtered1)
+    #filtered3=mean_2D(filtered1)
+    filtered4=delate_func(filtered1)
 
     cv2.imshow('original image',img)
     #cv2.imshow("gaussian img",gauss)
     #cv2.imshow("both img",filtered1)
     #cv2.imshow("other img",filtered2)
-    cv2.imshow("mean img",filtered3)
+    cv2.imshow("delated img",filtered4)
     
     cv2.waitKey()
     cv2.destroyAllWindows()
