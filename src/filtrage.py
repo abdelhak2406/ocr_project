@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-path='data/image3.jpg'
+path='data/image1.png'
 voisinage=3
 sizeDelate=2
 sizeErode=2
@@ -17,14 +17,35 @@ kernel3D=np.array([
 
 #its results look better
 def laplacian_filter(img):
-    img_gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    if len(img.shape)!=2 :
+        img_gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    else :
+        img_gray=img
+
     result=cv2.Laplacian(img_gray,cv2.CV_16S,ksize=3)
     result=cv2.convertScaleAbs(result)
     return result
 
-#the function that we did in tp
-def laplacian_other(img):
-    kernel=np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
+#improves clarity
+def improve_image(img):
+
+    kernel=np.array([[0,-1,0],[-1,5,-1],[0,-1,0]])
+    result=cv2.filter2D(img,-1,kernel)
+    return result
+
+
+def laplacian_8_connex(img):
+    if len(img.shape)!=2 :
+        img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    kernel=np.array([[1,1,1],[1,-8,1],[1,1,1]])
+    result=cv2.filter2D(img,-1,kernel)
+    return result
+
+def laplacian_robinson(img):
+    if len(img.shape)!=2 :
+        img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+    kernel=np.array([[1,-2,1],[-2,4,-2],[1,-2,1]])
     result=cv2.filter2D(img,-1,kernel)
     return result
 
@@ -32,6 +53,7 @@ def laplacian_other(img):
 def gaussian_filter(img):
     result=cv2.GaussianBlur(img,(3,3),0)
     return result
+
 
 #3D mean filter, cant be used with laplacian filter
 def mean_filter(img):
@@ -132,22 +154,35 @@ def fermeture_func(img):
     result=cv2.morphologyEx(img,cv2.MORPH_CLOSE,kernel)
     return result
 
+def resize_image(img,scale_percent):
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    dim = (width, height)
+
+    resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+    
+    return resized
+
 
 if __name__ == '__main__':
     img=cv2.imread(path,cv2.IMREAD_COLOR)
     gauss=gaussian_filter(img)
-    filtered1=laplacian_filter(gauss)
+    #filtered1=laplacian_filter(img)
+    #improved=improve_image(img)
+    #result1=laplacian_filter(gauss)
     #filtered2=laplacian_other(gauss)
-    #filtered3=mean_2D(filtered1)
-    filtered4=ouverture_func(gauss)
-    filtered5=fermeture_func(gauss)
+    filtered3=improve_image(img)
+    #mean=fermeture_func(img)
+    #filtered4=ouverture_func(gauss)
+    #filtered5=fermeture_func(gauss)
 
-    cv2.imshow('original image',img)
-    #cv2.imshow("gaussian img",gauss)
-    #cv2.imshow("both img",filtered1)
+    filtered3=resize_image(filtered3,80)
+    #cv2.imshow('original image',img)
+    cv2.imshow("laplacian",filtered3)
+    #cv2.imshow("both img",improved)
     #cv2.imshow("other img",filtered2)
-    cv2.imshow("ouverture img",filtered4)
-    cv2.imshow("fermeture img",filtered5)
+    #cv2.imshow("ouverture img",filtered4)
+    #cv2.imshow("fermeture img",filtered5)
     
     cv2.waitKey()
     cv2.destroyAllWindows()
