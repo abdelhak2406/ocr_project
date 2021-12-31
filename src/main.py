@@ -35,17 +35,12 @@ class Window(QMainWindow, Ui_MainWindow):
         #  liste des value 
         #TODO : set the values like that!!
         self.mean_voisinage.setValue(3)
-        self.median_value
-        self.delate_value
-        self.erode_value
-        self.ouverture_value
-        self.fermeture_value
-        #itm = QListWidgetItem("Geeks")
-        #itm = QSlider(self.listWidget,"slider")
-        pass
-        
-        #self.listWidget.addItem(itm)
-
+        self.median_value.setValue(3)
+        self.delate_value.setValue(2)
+        self.erode_value.setValue(3)
+        self.ouverture_value.setValue(3)
+        self.fermeture_value.setValue(2)
+       
     def main_needed(self):
         """all the objects needed from the main.py in ir ect.
         
@@ -69,7 +64,6 @@ class Window(QMainWindow, Ui_MainWindow):
         #self.get_selected_checkboxes()
         #self.list_selected
 
-        # TODO - important- afficher les images! grayscale!
 
         try:
             self.img == None
