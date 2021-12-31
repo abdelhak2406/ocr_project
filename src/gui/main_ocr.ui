@@ -64,8 +64,8 @@
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>351</width>
-      <height>471</height>
+      <width>327</width>
+      <height>429</height>
      </rect>
     </property>
     <property name="widgetResizable">
@@ -76,99 +76,159 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>349</width>
-       <height>469</height>
+       <width>325</width>
+       <height>427</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
        <widget class="QCheckBox" name="laplacian_cbx">
         <property name="text">
          <string>Laplacian filter</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="1" column="0">
        <widget class="QCheckBox" name="laplacian_8_cbx">
         <property name="text">
          <string>laplacien 8 connec</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="2" column="0">
        <widget class="QCheckBox" name="laplacian_rob_cbx">
         <property name="text">
          <string>Laplacin robinson</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="3" column="0">
        <widget class="QCheckBox" name="gauss_cbx">
         <property name="text">
          <string>Gaussian filter</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="4" column="0">
        <widget class="QCheckBox" name="mean_cbx">
         <property name="text">
          <string>Mean filter</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="4" column="2">
+       <widget class="QSpinBox" name="mean_voisinage"/>
+      </item>
+      <item row="5" column="0">
        <widget class="QCheckBox" name="median_cbx">
         <property name="text">
          <string>Median filter</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="5" column="2">
+       <widget class="QSpinBox" name="median_value"/>
+      </item>
+      <item row="6" column="0">
        <widget class="QCheckBox" name="delate_cbx">
         <property name="text">
          <string>delate function</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="6" column="2">
+       <widget class="QSpinBox" name="delate_value"/>
+      </item>
+      <item row="7" column="0">
        <widget class="QCheckBox" name="erode_cbx">
         <property name="text">
          <string>Erode function</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="7" column="2">
+       <widget class="QSpinBox" name="erode_value"/>
+      </item>
+      <item row="8" column="0">
        <widget class="QCheckBox" name="ouverture_cbx">
         <property name="text">
          <string>Ouvertuer function</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="8" column="2">
+       <widget class="QSpinBox" name="ouverture_value"/>
+      </item>
+      <item row="9" column="0">
        <widget class="QCheckBox" name="fermeture_cbx">
         <property name="text">
          <string>fermeture function</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="10" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Binarisation</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="11" column="0" colspan="2">
        <widget class="QCheckBox" name="adapt_th_int_img_cbx">
         <property name="text">
          <string>Adaptative threashold integral img</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="12" column="0">
        <widget class="QCheckBox" name="otsu_cbx">
         <property name="text">
          <string>otsu binarisation</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="2">
+       <widget class="QSpinBox" name="fermeture_value"/>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>voisinage</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>voisinage</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>taille</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>taille</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>taille</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>taille</string>
         </property>
        </widget>
       </item>

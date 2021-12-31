@@ -32,7 +32,14 @@ class Window(QMainWindow, Ui_MainWindow):
         """init the list of widgets!"""
         # TODO use QSlider to slide the thing!
         # Use checkboxes 
-
+        #  liste des value 
+        #TODO : set the values like that!!
+        self.mean_voisinage.setValue(3)
+        self.median_value
+        self.delate_value
+        self.erode_value
+        self.ouverture_value
+        self.fermeture_value
         #itm = QListWidgetItem("Geeks")
         #itm = QSlider(self.listWidget,"slider")
         pass
@@ -61,6 +68,9 @@ class Window(QMainWindow, Ui_MainWindow):
         # use 
         #self.get_selected_checkboxes()
         #self.list_selected
+
+        # TODO - important- afficher les images! grayscale!
+
         try:
             self.img == None
         except :
@@ -69,35 +79,57 @@ class Window(QMainWindow, Ui_MainWindow):
         self.transformed_img = self.img.copy()
 
         if(self.laplacian_cbx.isChecked()):
+            # No problem with shape
             self.transformed_img = filtrage.laplacian_filter(self.transformed_img)
             
         if(self.laplacian_8_cbx.isChecked()):
+            # no problem with shape
             self.transformed_img = filtrage.laplacian_8_connex(self.transformed_img)
 
         if(self.laplacian_rob_cbx.isChecked()):
+            # No problem with shape
             self.transformed_img = filtrage.laplacian_robinson(self.transformed_img)
 
         if(self.gauss_cbx.isChecked()):
+            # no problem with 2d 'normalement"
             self.transformed_img = filtrage.gaussian_filter(self.transformed_img)
 
         if(self.mean_cbx.isChecked()):
-            # TODO add  voisinage
-            self.transformed_img = filtrage.mean_filter(self.transformed_img,voisinage=3)
-
+            voisinage = int(self.mean_voisinage.text())
+            if (len(self.transformed_img.shape)) == 2:
+                self.transformed_img = filtrage.mean_2D(self.transformed_img, voisinage)
+            else:
+                self.transformed_img = filtrage.mean_filter(self.transformed_img, voisinage)
+            print("we entred mean!")
         if(self.median_cbx.isChecked()):
-            self.transformed_img = filtrage.median_filter(self.transformed_img,voisinage=3)
+            voisinage = int(self.median_value.text())
+            if (len(self.transformed_img.shape)) == 2:
+                self.transformed_img = filtrage.median_2D(self.transformed_img,voisinage=3)
+            else:
+                self.transformed_img = filtrage.median_filter(self.transformed_img,voisinage=3)
 
         if(self.delate_cbx.isChecked()):
-            self.transformed_img = filtrage.delate_func(self.transformed_img, sizeDelate=1)
+            # no problem with 2d 3d
+            size_delate = int(self.delate_cbx.text())
+            self.transformed_img = filtrage.delate_func(self.transformed_img, size_delate)
 
         if(self.erode_cbx.isChecked()):
-            self.transformed_img = filtrage.erode_func(self.transformed_img, sizeErode=1)
+            # no problem with 2d 3d
+            size_erode = int(self.erode_cbx.text())
+            self.transformed_img = filtrage.erode_func(self.transformed_img, size_erode)
 
         if(self.ouverture_cbx.isChecked()):
-            self.transformed_img = filtrage.ouverture_func(self.transformed_img,sizeOuverture =1)
+            # no problem with 2d 3d
+            size_ouv = int( self.ouverture_value)
+            self.transformed_img = filtrage.ouverture_func(self.transformed_img, size_ouv)
 
         if(self.fermeture_cbx.isChecked()):
-            self.transformed_img = filtrage.fermeture_func(self.transformed_img,sizeFermeture=1)
+            size_ferm = int(self.fermeture_value)
+            self.transformed_img = filtrage.fermeture_func(self.transformed_img, size_ferm)
+
+
+
+
 
         # Binarisation
         if(self.otsu_cbx.isChecked()):
@@ -154,10 +186,16 @@ class Window(QMainWindow, Ui_MainWindow):
     def convert_to_pixmap(self, img):
         """convert an iamge to pixmal in order to display it!"""
         #TODO: what do this thing do?
+        if len(img.shape) != 2:
+            img = QImage(img.data, img.shape[1], img.shape[0], img.strides[0],QImage.Format_RGB888)
+            img = img.rgbSwapped()
+            img = QPixmap.fromImage(img)
+        else:
+            img = QImage(img.data, img.shape[1], img.shape[0], img.strides[0],QImage.Format_Grayscale8)
+            img = img.rgbSwapped()
+            img = QPixmap.fromImage(img)
 
-        img = QImage(img.data, img.shape[1], img.shape[0], img.strides[0],QImage.Format_RGB888)
-        img = img.rgbSwapped()
-        img = QPixmap.fromImage(img)
+        
         return img
 
     def get_selected_checkboxes(self):

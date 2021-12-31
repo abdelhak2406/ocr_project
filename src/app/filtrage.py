@@ -23,7 +23,7 @@ def laplacian_filter(img):
 
 #improves clarity
 def improve_image(img):
-
+    #TODO: find of if i need to add it!
     kernel=np.array([[0,-1,0],[-1,5,-1],[0,-1,0]])
     result=cv2.filter2D(img,-1,kernel)
     return result
@@ -63,7 +63,6 @@ def mean_filter(img,voisinage):
                 if x<voisinage/2 or x>w-voisinage/2 or y<voisinage/2 \
                     or y>h-voisinage/2:
                     img_moy[y,x,z]=img[y,x,z]
-                
                 else:
                     imgV= img[int(y-voisinage/2):int(y+voisinage/2)+1,\
                         int(x-voisinage/2):int(x+voisinage/2)+1,z]
@@ -95,6 +94,7 @@ def median_filter(img,voisinage):
 
 #used with 2D images (images that used laplace)
 def median_2D(img,voisinage):
+    #TODO: dont forget to add an if somewhere to check if is used laplacian !
     h,w=img.shape
     img_med= np.zeros(img.shape,np.uint8)
 
@@ -159,6 +159,7 @@ def fermeture_func(img,sizeFermeture):
 
 #re-scales the image
 def resize_image(img,scale_percent):
+    #TODO: try to use it to display the pics
     width = int(img.shape[1] * scale_percent / 100)
     height = int(img.shape[0] * scale_percent / 100)
     dim = (width, height)
@@ -168,8 +169,8 @@ def resize_image(img,scale_percent):
     return resized
 
 
+""" 
 if __name__ == '__main__':
-    """
     img=cv2.imread(path,cv2.IMREAD_COLOR)
     gauss=gaussian_filter(img)
     #filtered1=laplacian_filter(img)
@@ -191,4 +192,4 @@ if __name__ == '__main__':
     
     cv2.waitKey()
     cv2.destroyAllWindows()
-    """
+"""
