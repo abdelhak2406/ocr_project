@@ -2,11 +2,6 @@ import cv2
 import numpy as np
 
 path='data/image1.png'
-voisinage=3
-sizeDelate=2
-sizeErode=2
-sizeOuverture=3
-sizeFermeture=2
 
 #just in case we find a solution to use laplacian in 3D, this is its kernel
 kernel3D=np.array([
@@ -56,7 +51,8 @@ def gaussian_filter(img):
 
 
 #3D mean filter, cant be used with laplacian filter
-def mean_filter(img):
+#user enters voisinage
+def mean_filter(img,voisinage):
     h,w,c=img.shape
     img_moy= np.zeros(img.shape,np.uint8)
 
@@ -76,7 +72,8 @@ def mean_filter(img):
 
 
 #3D median filter, cant be used with laplacian filter
-def median_filter(img):
+#user enters voisinage
+def median_filter(img,voisinage):
     h,w,c=img.shape
     img_med= np.zeros(img.shape,np.uint8)
 
@@ -96,7 +93,7 @@ def median_filter(img):
 
 
 #used with 2D images (images that used laplace)
-def median_2D(img):
+def median_2D(img,voisinage):
     h,w=img.shape
     img_med= np.zeros(img.shape,np.uint8)
 
@@ -115,7 +112,7 @@ def median_2D(img):
 
 
 #used with 2D images (images that used laplace)
-def mean_2D(img):
+def mean_2D(img,voisinage):
     h,w=img.shape
     img_mean= np.zeros(img.shape,np.uint8)
 
@@ -134,26 +131,32 @@ def mean_2D(img):
 
 
 #works for both 3D and 2D
-def delate_func(img):
+# User enters sizeDelate
+def delate_func(img,sizeDelate):
     kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(sizeDelate*2+1,sizeDelate*2+1))
     result=cv2.dilate(img,kernel,iterations=1)
     return result
 
-def erode_func(img):
+# User enters sizeErode
+def erode_func(img,sizeErode):
     kernel=cv2.getStructuringElement(cv2.MORPH_CROSS,(sizeErode*2+1,sizeErode*2+1))
     result=cv2.erode(img,kernel,iterations=1)
     return result
 
-def ouverture_func(img):
+# User enters sizeOuverture
+def ouverture_func(img,sizeOuverture):
     kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(sizeOuverture*2+1,sizeOuverture*2+1))
     result=cv2.morphologyEx(img,cv2.MORPH_OPEN,kernel)
     return result
 
-def fermeture_func(img):
+# User enters sizeFermeture
+def fermeture_func(img,sizeFermeture):
     kernel=cv2.getStructuringElement(cv2.MORPH_CROSS,(sizeFermeture*2+1,sizeFermeture*2+1))
     result=cv2.morphologyEx(img,cv2.MORPH_CLOSE,kernel)
     return result
 
+
+#re-scales the image
 def resize_image(img,scale_percent):
     width = int(img.shape[1] * scale_percent / 100)
     height = int(img.shape[0] * scale_percent / 100)
@@ -171,7 +174,7 @@ if __name__ == '__main__':
     #improved=improve_image(img)
     #result1=laplacian_filter(gauss)
     #filtered2=laplacian_other(gauss)
-    filtered3=improve_image(img)
+    filtered3=mean_filter(img,3)
     #mean=fermeture_func(img)
     #filtered4=ouverture_func(gauss)
     #filtered5=fermeture_func(gauss)
