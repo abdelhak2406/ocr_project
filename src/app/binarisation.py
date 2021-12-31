@@ -5,7 +5,8 @@ import numpy as np
 adaptive thresholding using integral image, Gerhard Roth
 check this link: https://www.researchgate.net/publication/220494200_Adaptive_Thresholding_using_the_Integral_Image
 """
-def adaptive_threshold_integral_img(filename,  sub_thresh = 0.15):
+def adaptive_threshold_integral_img(image,  sub_thresh = 0.15):
+    # entre 0 et 1 
     #image = cv.imread(filename)
     gray_image = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
     #Calculate integral image
@@ -14,7 +15,7 @@ def adaptive_threshold_integral_img(filename,  sub_thresh = 0.15):
     width = gray_image.shape[1]
     height = gray_image.shape[0]
     win_length = int(width / 8)
-    image_thresh = np.zeros((height, width, 1), dtype = np.uint8)
+    image_thresh = np.zeros((height, width), dtype = np.uint8)
     #perform threshholding
     for i in range(height):
         for j in range(width):
@@ -39,22 +40,27 @@ def adaptive_threshold_integral_img(filename,  sub_thresh = 0.15):
                 image_thresh[i, j] = 0
             else:
                 image_thresh[i, j] = 255
+    print("sortie dengin")
     return image_thresh
 
 #simple opencv otsu's binarization
-def adaptive_threshold_otsu(img_path):
-    img = cv.imread(img_path, 0)
-    #TODO i dont get it!!
+def adaptive_threshold_otsu(img):
+    if len(img.shape) !=2:
+        img=cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+
     blur = cv.GaussianBlur(img,(3,3),0)
     out_img= cv.threshold(blur,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)[1]
-    print("ahahaha")
     return out_img
-"""
 
-img = adaptive_threshold_integral_img("data/image4.jpg")    
-img2 = adaptive_threshold_otsu("data/image4.jpg")
+
+"""
+print("color val ",  cv.IMREAD_COLOR)
+
+img = cv.imread("data/image4.jpg",cv.IMREAD_COLOR)
+
+img = adaptive_threshold_integral_img(img)    
 cv.imshow("the method2", img)
-cv.imshow("otsu", img2)
 cv.waitKey(0)
 cv.destroyAllWindows()
+
 """

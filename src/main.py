@@ -40,6 +40,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.erode_value.setValue(3)
         self.ouverture_value.setValue(3)
         self.fermeture_value.setValue(2)
+        self.adapt_th_value.setValue(0.15)
        
     def main_needed(self):
         """all the objects needed from the main.py in ir ect.
@@ -63,6 +64,10 @@ class Window(QMainWindow, Ui_MainWindow):
         # use 
         #self.get_selected_checkboxes()
         #self.list_selected
+        #itm = QListWidgetItem("Geeks")
+        #itm = QSlider(self.listWidget,"slider")
+        
+        #self.listWidget.addItem(itm)
 
 
         try:
@@ -94,7 +99,6 @@ class Window(QMainWindow, Ui_MainWindow):
                 self.transformed_img = filtrage.mean_2D(self.transformed_img, voisinage)
             else:
                 self.transformed_img = filtrage.mean_filter(self.transformed_img, voisinage)
-            print("we entred mean!")
         if(self.median_cbx.isChecked()):
             voisinage = int(self.median_value.text())
             if (len(self.transformed_img.shape)) == 2:
@@ -114,11 +118,11 @@ class Window(QMainWindow, Ui_MainWindow):
 
         if(self.ouverture_cbx.isChecked()):
             # no problem with 2d 3d
-            size_ouv = int( self.ouverture_value)
+            size_ouv = int( self.ouverture_value.text())
             self.transformed_img = filtrage.ouverture_func(self.transformed_img, size_ouv)
 
         if(self.fermeture_cbx.isChecked()):
-            size_ferm = int(self.fermeture_value)
+            size_ferm = int(self.fermeture_value.text())
             self.transformed_img = filtrage.fermeture_func(self.transformed_img, size_ferm)
 
 
@@ -128,11 +132,16 @@ class Window(QMainWindow, Ui_MainWindow):
         # Binarisation
         if(self.otsu_cbx.isChecked()):
             #TODO:  add the sub_thresh! and condition maybe?
-            self.transformed_img  =  binarisation.adaptive_threshold_integral_img(self.transformed_img)
+            self.transformed_img  =  binarisation.adaptive_threshold_otsu(self.transformed_img)
 
         if (self.adapt_th_int_img_cbx.isChecked()):
+            sub_th = float(self.adapt_th_value.text())
+            if ( (sub_th > 1) or (sub_th <0)) :
+                QMessageBox.about(self,"Value incorrect","Please select a value between 0 and 1 for \
+                    the adaptative threasholding binarisation!")
+                return
             #TODO:this too do it!!
-            self.transformed_img  =  binarisation.adaptive_threshold_otsu(self.transformed_img)
+            self.transformed_img  =  binarisation.adaptive_threshold_integral_img(self.transformed_img, sub_th)
         
 
         # display the  new image
@@ -162,6 +171,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.img =  QPixmap.fromImage(img)
         self.img_display.setPixmap(self.img)
         """
+    
     def display_img(self, img):
         """display the img in the right place!
         img     -- image in the cv2 representation! (color)or 
@@ -170,7 +180,6 @@ class Window(QMainWindow, Ui_MainWindow):
         img_tmp = self.convert_to_pixmap(img)
         self.img_display.setScaledContents(True)
         self.img_display.setPixmap(img_tmp)
-
 
     def put_new_img_in_label(self):
         """just a function that puts a*n imge in albl"""

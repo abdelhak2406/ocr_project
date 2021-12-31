@@ -64,8 +64,8 @@
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>327</width>
-      <height>429</height>
+      <width>351</width>
+      <height>471</height>
      </rect>
     </property>
     <property name="widgetResizable">
@@ -76,8 +76,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>325</width>
-       <height>427</height>
+       <width>349</width>
+       <height>469</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
@@ -231,6 +231,9 @@
          <string>taille</string>
         </property>
        </widget>
+      </item>
+      <item row="11" column="2">
+       <widget class="QDoubleSpinBox" name="adapt_th_value"/>
       </item>
      </layout>
     </widget>
