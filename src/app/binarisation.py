@@ -39,12 +39,22 @@ def adaptive_threshold_integral_img(filename,  sub_thresh = 0.15):
                 image_thresh[i, j] = 0
             else:
                 image_thresh[i, j] = 255
-
     return image_thresh
 
 #simple opencv otsu's binarization
 def adaptive_threshold_otsu(img_path):
     img = cv.imread(img_path, 0)
+    #TODO i dont get it!!
     blur = cv.GaussianBlur(img,(3,3),0)
     out_img= cv.threshold(blur,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)[1]
+    print("ahahaha")
     return out_img
+"""
+
+img = adaptive_threshold_integral_img("data/image4.jpg")    
+img2 = adaptive_threshold_otsu("data/image4.jpg")
+cv.imshow("the method2", img)
+cv.imshow("otsu", img2)
+cv.waitKey(0)
+cv.destroyAllWindows()
+"""
