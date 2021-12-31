@@ -11,14 +11,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1229, 652)
+        MainWindow.resize(1229, 630)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.brows_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.brows_btn.setGeometry(QtCore.QRect(1080, 570, 87, 27))
+        self.brows_btn.setGeometry(QtCore.QRect(1100, 530, 87, 27))
         self.brows_btn.setObjectName("brows_btn")
         self.display_selected_file = QtWidgets.QTextBrowser(self.centralwidget)
-        self.display_selected_file.setGeometry(QtCore.QRect(400, 570, 661, 31))
+        self.display_selected_file.setGeometry(QtCore.QRect(380, 530, 701, 31))
         self.display_selected_file.setObjectName("display_selected_file")
         self.img_display = QtWidgets.QLabel(self.centralwidget)
         self.img_display.setGeometry(QtCore.QRect(380, 50, 811, 471))

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1229</width>
-    <height>652</height>
+    <height>630</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="brows_btn">
     <property name="geometry">
      <rect>
-      <x>1080</x>
-      <y>570</y>
+      <x>1100</x>
+      <y>530</y>
       <width>87</width>
       <height>27</height>
      </rect>
@@ -30,9 +30,9 @@
    <widget class="QTextBrowser" name="display_selected_file">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>570</y>
-      <width>661</width>
+      <x>380</x>
+      <y>530</y>
+      <width>701</width>
       <height>31</height>
      </rect>
     </property>
