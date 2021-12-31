@@ -6,7 +6,7 @@ adaptive thresholding using integral image, Gerhard Roth
 check this link: https://www.researchgate.net/publication/220494200_Adaptive_Thresholding_using_the_Integral_Image
 """
 def adaptive_threshold_integral_img(filename,  sub_thresh = 0.15):
-    image = cv.imread(filename)
+    #image = cv.imread(filename)
     gray_image = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
     #Calculate integral image
     integralimage = cv.integral(gray_image, cv.CV_32F)

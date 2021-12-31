@@ -36,6 +36,7 @@ def laplacian_8_connex(img):
     result=cv2.filter2D(img,-1,kernel)
     return result
 
+
 def laplacian_robinson(img):
     if len(img.shape)!=2 :
         img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -168,6 +169,7 @@ def resize_image(img,scale_percent):
 
 
 if __name__ == '__main__':
+    """
     img=cv2.imread(path,cv2.IMREAD_COLOR)
     gauss=gaussian_filter(img)
     #filtered1=laplacian_filter(img)
@@ -189,3 +191,4 @@ if __name__ == '__main__':
     
     cv2.waitKey()
     cv2.destroyAllWindows()
+    """
