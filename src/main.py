@@ -108,12 +108,12 @@ class Window(QMainWindow, Ui_MainWindow):
 
         if(self.delate_cbx.isChecked()):
             # no problem with 2d 3d
-            size_delate = int(self.delate_cbx.text())
+            size_delate = int(self.delate_value.text())
             self.transformed_img = filtrage.delate_func(self.transformed_img, size_delate)
 
         if(self.erode_cbx.isChecked()):
             # no problem with 2d 3d
-            size_erode = int(self.erode_cbx.text())
+            size_erode = int(self.erode_value.text())
             self.transformed_img = filtrage.erode_func(self.transformed_img, size_erode)
 
         if(self.ouverture_cbx.isChecked()):
